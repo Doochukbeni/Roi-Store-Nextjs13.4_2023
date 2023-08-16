@@ -6,7 +6,7 @@ import { useParams, useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 import axios from "axios";
 
-import { CategoryColumn } from "./CategoryColumns";
+import { SizeColumn } from "./SizeColumns";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -18,7 +18,7 @@ import { CustomButton } from "@/components/ui/CustomButton";
 import AlertModal from "@/components/modals/AlertModal";
 
 interface CellActionProps {
-  data: CategoryColumn;
+  data: SizeColumn;
 }
 
 const CellActions = ({ data }: CellActionProps) => {
@@ -29,18 +29,18 @@ const CellActions = ({ data }: CellActionProps) => {
 
   const onCopy = (id: string) => {
     navigator.clipboard.writeText(id);
-    toast.success("Category Id copied to clipboard");
+    toast.success("size Id copied to clipboard");
   };
   const onDelete = async () => {
     try {
       setLoading(true);
       setIsOpen(true);
-      await axios.delete(`/api/${params.storeId}/categories/${data.id}`);
+      await axios.delete(`/api/${params.storeId}/sizes/${data.id}`);
       router.refresh();
-      toast.success("Category deleted successfully");
+      toast.success("Size deleted successfully");
     } catch (error) {
       toast.error(
-        "something went wrong. make sure you delete products using this Category"
+        "something went wrong. make sure you remove all products using this size"
       );
     } finally {
       setLoading(false);
@@ -68,9 +68,7 @@ const CellActions = ({ data }: CellActionProps) => {
             <Copy className="mr-2 h-4 w-4 " /> Copy Id
           </DropdownMenuItem>
           <DropdownMenuItem
-            onClick={() =>
-              router.push(`/${params.storeId}/categories/${data.id}`)
-            }
+            onClick={() => router.push(`/${params.storeId}/sizes/${data.id}`)}
           >
             <Edit className="mr-2 h-4 w-4 " /> Update
           </DropdownMenuItem>

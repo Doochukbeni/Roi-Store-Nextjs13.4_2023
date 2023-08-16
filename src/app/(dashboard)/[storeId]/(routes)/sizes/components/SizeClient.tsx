@@ -7,15 +7,15 @@ import Heading from "@/components/Heading";
 import { CustomButton } from "@/components/ui/CustomButton";
 import { Separator } from "@/components/ui/Separator";
 
-import { CategoryColumn, columns } from "./CategoryColumns";
+import { SizeColumn, columns } from "./SizeColumns";
 import { DataTable } from "@/components/ui/DataTable";
 import ApiList from "@/components/ui/ApiList";
 
-interface CategoryClientProps {
-  data: CategoryColumn[];
+interface SizeClientProps {
+  data: SizeColumn[];
 }
 
-const CategoryClient = ({ data }: CategoryClientProps) => {
+const SizeClient = ({ data }: SizeClientProps) => {
   const router = useRouter();
   const params = useParams();
 
@@ -23,11 +23,11 @@ const CategoryClient = ({ data }: CategoryClientProps) => {
     <>
       <div className="flex items-center justify-between">
         <Heading
-          description="Manage Categories for your Store"
-          title={`Categories (${data?.length})`}
+          description="Manage Sizes for your Products"
+          title={`Sizes (${data?.length})`}
         />
         <CustomButton
-          onClick={() => router.push(`/${params.storeId}/categories/new`)}
+          onClick={() => router.push(`/${params.storeId}/sizes/new`)}
         >
           <Plus className="w-4 h-4 mr-2" />
           Add New
@@ -35,11 +35,11 @@ const CategoryClient = ({ data }: CategoryClientProps) => {
       </div>
       <Separator />
       <DataTable columns={columns} data={data} searchKey="name" />
-      <Heading description="API calls for Categories" title="API" />
+      <Heading description="API calls for Sizes" title="API" />
       <Separator />
-      <ApiList entityIdName="categoryId" entityName="categories" />
+      <ApiList entityIdName="sizeId" entityName="sizes" />
     </>
   );
 };
 
-export default CategoryClient;
+export default SizeClient;
