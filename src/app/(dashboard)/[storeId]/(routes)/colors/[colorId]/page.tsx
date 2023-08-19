@@ -1,7 +1,8 @@
 import { db } from "@/lib/db";
+
 import ColorForm from "../components/ColorForm";
 
-const CreateNewSizes = async ({
+const CreateNewColors = async ({
   params,
 }: {
   params: { colorId: string; storeId: string };
@@ -21,4 +22,4 @@ const CreateNewSizes = async ({
   );
 };
 
-export default CreateNewSizes;
+export default CreateNewColors;

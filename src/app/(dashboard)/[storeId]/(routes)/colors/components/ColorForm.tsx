@@ -1,7 +1,7 @@
 "use client";
 
 import * as z from "zod";
-import { Size } from "@prisma/client";
+import { Color } from "@prisma/client";
 import { Trash } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -25,24 +25,18 @@ import axios from "axios";
 import { useParams, useRouter } from "next/navigation";
 import AlertModal from "@/components/modals/AlertModal";
 
-import useOrigin from "@/hooks/use-origin";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/Select";
-
 const formSchema = z.object({
   name: z.string().min(2),
-  value: z.string().min(1),
+  value: z
+    .string()
+    .min(4)
+    .regex(/^#/, { message: "string must be a valid hex code" }),
 });
 
 type ColorFormValues = z.infer<typeof formSchema>;
 
 interface ColorFormProps {
-  initialData: Size | null;
+  initialData: Color | null;
 }
 
 const ColorForm = ({ initialData }: ColorFormProps) => {
@@ -51,8 +45,6 @@ const ColorForm = ({ initialData }: ColorFormProps) => {
 
   const params = useParams();
   const router = useRouter();
-
-  const origin = useOrigin();
 
   const title = initialData ? "Edit Color" : "Create Color";
   const description = initialData ? "Edit a Color" : "Add a new Color";
@@ -93,7 +85,7 @@ const ColorForm = ({ initialData }: ColorFormProps) => {
       await axios.delete(`/api/${params.storeId}/colors/${params.colorId}`);
       router.refresh();
       router.push(`/${params.storeId}/colors`);
-      toast.success("size deleted successfully");
+      toast.success("Color deleted");
     } catch (error) {
       toast.error(
         "something went wrong. make sure you remove all Products using this Color first !"
@@ -132,7 +124,7 @@ const ColorForm = ({ initialData }: ColorFormProps) => {
           onSubmit={form.handleSubmit(onSubmit)}
           className="space-y-8 w-fit"
         >
-          <div className="grid grid-col-3 gap-8">
+          <div className="flex items-center gap-8">
             <FormField
               control={form.control}
               name="name"
@@ -143,6 +135,7 @@ const ColorForm = ({ initialData }: ColorFormProps) => {
                     <Input
                       disabled={loading}
                       placeholder="Color Name"
+                      autoComplete="off"
                       {...field}
                     />
                   </FormControl>
@@ -155,13 +148,20 @@ const ColorForm = ({ initialData }: ColorFormProps) => {
               name="value"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Color</FormLabel>
+                  <FormLabel>Value</FormLabel>
                   <FormControl>
-                    <Input
-                      disabled={loading}
-                      placeholder="Color Value"
-                      {...field}
-                    />
+                    <div className="flex items-center gap-x-4">
+                      <Input
+                        disabled={loading}
+                        placeholder="Color Value"
+                        autoComplete="off"
+                        {...field}
+                      />
+                      <div
+                        className="border p-4 rounded-full"
+                        style={{ backgroundColor: field.value }}
+                      />
+                    </div>
                   </FormControl>
                   <FormMessage />
                 </FormItem>

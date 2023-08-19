@@ -1,5 +1,5 @@
 "use client";
-import ModalContent from "@/components/ModalContent";
+
 import { useStoreModal } from "@/hooks/use-store-modal";
 import { useEffect } from "react";
 

@@ -20,10 +20,11 @@ datasource db {
   user         User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
 
-  sizes      Size[] @relation("StoreToSize")
-  colors      Color[] @relation("StoreToColor")
-  billboard     Billboard[] @relation("StoreToBillboard")
-  categories    Category[] @relation("StoreToCategory")
+  sizes          Size[] @relation("StoreToSize")
+  colors         Color[] @relation("StoreToColor")
+  billboard      Billboard[] @relation("StoreToBillboard")
+  categories     Category[] @relation("StoreToCategory")
+  products       Product[] @relation("StoreToProduct")
  
 
   @@index([userId])
@@ -45,6 +46,7 @@ datasource db {
  
  
 }
+
 model Billboard{
   id           String     @id @default(cuid())
   storeId      String
@@ -69,6 +71,8 @@ model Category{
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 
+  products       Product[] @relation("CategoryToProducts")
+
 
  @@index([storeId])
  @@index([billboardId])
@@ -82,10 +86,13 @@ model Size{
   value          String
   createdAt      DateTime @default(now())
   updatedAt      DateTime  @updatedAt
+  products       Product[] 
 
 
   @@index([storeId])
 }
+
+
 model Color{
   id             String @id @default(uuid())
   storeId        String 
@@ -94,9 +101,49 @@ model Color{
   value          String
   createdAt      DateTime @default(now())
   updatedAt      DateTime  @updatedAt
+  products         Product[]
 
 
   @@index([storeId])
+}
+
+model Product{
+  id             String   @id @default(uuid())
+  storeId       String
+  store         Store     @relation("StoreToProduct",fields: [storeId],references: [id])
+  categoryId    String
+  category      Category  @relation("CategoryToProducts",fields: [categoryId],references: [id])
+  name          String
+  price         Decimal
+  isFeatured    Boolean   @default(false)
+  isArchived    Boolean   @default(false)
+  sizeId        String
+  size          Size      @relation(fields: [sizeId],references: [id])
+  colorId       String
+  color         Color     @relation(fields: [colorId],references: [id])
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  images        Image[]
+
+
+
+  @@index([storeId])
+  @@index([categoryId])
+  @@index([sizeId])
+  @@index([colorId])
+}
+
+
+model Image{
+  id                String @id @default(uuid())
+  productId         String
+  product           Product @relation(fields: [productId],references: [id],onDelete: Cascade)
+  url               String
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@index([productId])
 }
 
 model Account {
