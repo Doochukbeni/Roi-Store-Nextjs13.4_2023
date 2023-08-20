@@ -25,6 +25,7 @@ datasource db {
   billboard      Billboard[] @relation("StoreToBillboard")
   categories     Category[] @relation("StoreToCategory")
   products       Product[] @relation("StoreToProduct")
+  orders         Order[] @relation("StoreToOrder")
  
 
   @@index([userId])
@@ -125,6 +126,7 @@ model Product{
   updatedAt     DateTime  @updatedAt
 
   images        Image[]
+  orderItem     OrderItem[]
 
 
 
@@ -144,6 +146,31 @@ model Image{
   updatedAt         DateTime @updatedAt
 
   @@index([productId])
+}
+
+model Order{
+  id                String @id @default(uuid())
+  storeId           String
+  store             Store @relation("StoreToOrder",fields: [storeId],references: [id])
+  orderItems        OrderItem[]
+  isPaid            Boolean @default(false)
+  phone             String @default("")
+  address           String @default("")
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@index([storeId])
+}
+
+model OrderItem{
+  id                String @id @default(uuid())
+  orderId           String
+  order             Order @relation(fields: [orderId],references: [id])
+  productId         String
+  product           Product @relation(fields: [productId],references: [id])
+   
+   @@index([orderId])
+   @@index([productId])
 }
 
 model Account {
