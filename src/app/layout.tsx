@@ -6,6 +6,7 @@ import { Toaster as ReactToaster } from "react-hot-toast";
 
 import { Toaster } from "@/components/ui/Toaster";
 import ModalProvider from "@/providers/ModalProvider";
+import { ThemeProvider } from "@/providers/theme-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,13 +26,15 @@ export default function RootLayout({
       className={cn("bg-white text-slate-900 antialiased", inter.className)}
     >
       <body className="min-h-screen pt-12 bg-slate-50 antialiased">
-        <ModalProvider />
-        <ReactToaster />
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <ModalProvider />
+          <ReactToaster />
 
-        <div className="container max-w-7xl mx-auto h-full pt-5">
-          {children}
-        </div>
-        <Toaster />
+          <div className="container max-w-7xl mx-auto h-full pt-5">
+            {children}
+          </div>
+          <Toaster />
+        </ThemeProvider>
       </body>
     </html>
   );

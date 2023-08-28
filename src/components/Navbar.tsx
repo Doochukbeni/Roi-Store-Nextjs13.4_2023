@@ -9,6 +9,7 @@ import MainNav from "./MainNav";
 import StoreSwitcher from "./StoreSwitcher";
 import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
+import { ThemeToggle } from "@/components/Theme-Toggle";
 
 const Navbar = async () => {
   const session = await getAuthSession();
@@ -30,6 +31,7 @@ const Navbar = async () => {
 
         {/* {searchbar} */}
         <div className="ml-auto flex items-center space-x-4">
+          <ThemeToggle />
           {session?.user ? (
             <UserAccountNav user={session.user} />
           ) : (
