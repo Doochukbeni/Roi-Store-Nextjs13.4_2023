@@ -1,9 +1,9 @@
-import Navbar from "@/components/Navbar";
 import { db } from "@/lib/db";
 import { userSession } from "@/lib/user-sessionId";
 import { redirect } from "next/navigation";
 
-export default async function ({
+import Navbar from "@/components/Navbar";
+export default async function layout({
   children,
   params,
 }: {
@@ -23,7 +23,7 @@ export default async function ({
   return (
     <>
       <Navbar />
-      <div className="pt-5">{children}</div>
+      <div className="pt-5 bg">{children}</div>
     </>
   );
 }
