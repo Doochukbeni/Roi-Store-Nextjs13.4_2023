@@ -1,6 +1,6 @@
 import SettingsForm from "@/components/SettingsForm";
-import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";
+import { userSession } from "@/lib/user-sessionId";
 import { redirect } from "next/navigation";
 
 interface SettingsPageProps {
@@ -10,19 +10,12 @@ interface SettingsPageProps {
 }
 
 const SettingsPage = async ({ params }: SettingsPageProps) => {
-  const session = await getAuthSession();
+  const userId = await userSession();
 
-  const dbUser = await db.user.findUnique({
-    where: { email: session?.user.email! },
-  });
-
-  if (!dbUser?.id) {
-    redirect("/sign-in");
-  }
   const store = await db.store.findFirst({
     where: {
       id: params.storeId,
-      userId: dbUser.id,
+      userId: userId,
     },
   });
   if (!store) {
@@ -30,7 +23,7 @@ const SettingsPage = async ({ params }: SettingsPageProps) => {
   }
 
   return (
-    <main className="flex flex-col ">
+    <main className="flex flex-col  dark:bg-slate-900 dark:text-slate-200">
       <div className="flex-1 space-y-4 p-8 pt-6">
         <SettingsForm initialData={store} />
       </div>

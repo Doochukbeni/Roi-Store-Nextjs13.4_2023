@@ -1,6 +1,6 @@
 import Navbar from "@/components/Navbar";
-import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";
+import { userSession } from "@/lib/user-sessionId";
 import { redirect } from "next/navigation";
 
 export default async function ({
@@ -10,21 +10,12 @@ export default async function ({
   children: React.ReactNode;
   params: { storeId: string };
 }) {
-  const session = await getAuthSession();
-
-  if (!session) {
-    redirect("/sign-in");
-  }
-  const dbUser = await db.user.findUnique({
-    where: { email: session.user.email! },
-  });
-
-  if (!dbUser) return;
+  const userId = await userSession();
 
   const store = await db.store.findFirst({
     where: {
       id: params.storeId,
-      userId: dbUser?.id,
+      userId: userId,
     },
   });
   if (!store) redirect("/");
@@ -32,7 +23,7 @@ export default async function ({
   return (
     <>
       <Navbar />
-      {children}
+      <div className="pt-5">{children}</div>
     </>
   );
 }

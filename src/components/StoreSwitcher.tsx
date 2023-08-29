@@ -1,5 +1,8 @@
 "use client";
 
+import { useParams, useRouter } from "next/navigation";
+import { useState } from "react";
+
 import {
   Popover,
   PopoverContent,
@@ -7,13 +10,9 @@ import {
 } from "@/components/ui/popover";
 import { useStoreModal } from "@/hooks/use-store-modal";
 import { Store } from "@prisma/client";
-import { useParams, useRouter } from "next/navigation";
-import { useState } from "react";
-import { CustomButton } from "./ui/CustomButton";
+import { CustomButton } from "@/components/ui/CustomButton";
 import {
   Check,
-  ChevronDown,
-  ChevronUp,
   ChevronsUpDown,
   PlusCircle,
   Store as StoreIcon,
@@ -67,7 +66,10 @@ const StoreSwitcher = ({ className, items = [] }: StoreSwitcherProps) => {
           role="combobox"
           aria-expanded={open}
           aria-label="Select a store"
-          className={cn("w-[200px] justify-between", className)}
+          className={cn(
+            "w-[200px] justify-between dark:bg-slate-600 dark:border-none dark:text-slate-300",
+            className
+          )}
         >
           <StoreIcon className="mr-2 h-4 w-4" />
           {currentStore?.label}

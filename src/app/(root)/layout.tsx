@@ -1,5 +1,5 @@
-import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";
+import { userSession } from "@/lib/user-sessionId";
 import { redirect } from "next/navigation";
 
 export default async function SetupLayout({
@@ -7,19 +7,10 @@ export default async function SetupLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const session = await getAuthSession();
-
-  if (!session) {
-    redirect("/sign-in");
-  }
-  const dbUser = await db.user.findUnique({
-    where: { email: session.user.email! },
-  });
-
-  if (!dbUser) return;
+  const userId = await userSession();
 
   const store = await db.store.findFirst({
-    where: { userId: dbUser.id },
+    where: { userId: userId },
   });
 
   if (store) {

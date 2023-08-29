@@ -60,7 +60,7 @@ export function DataTable<TData, TValue>({
           onChange={(event) =>
             table.getColumn(searchKey)?.setFilterValue(event.target.value)
           }
-          className="max-w-sm"
+          className="max-w-sm dark:bg-neutral-400 outline-none border-none"
         />
       </div>
       <div className="rounded-md border">
@@ -115,6 +115,7 @@ export function DataTable<TData, TValue>({
       </div>
       <div className="flex items-center justify-end space-x-2 py-4">
         <CustomButton
+          className="dark:border dark:border-gray-500 dark:bg-slate-800 dark:text-slate-300 hover:text-neutral-100"
           variant="outline"
           size="sm"
           onClick={() => table.previousPage()}
@@ -123,6 +124,7 @@ export function DataTable<TData, TValue>({
           Previous
         </CustomButton>
         <CustomButton
+          className="dark:border dark:border-gray-500 dark:bg-slate-800 dark:text-slate-300 hover:text-neutral-100"
           variant="outline"
           size="sm"
           onClick={() => table.nextPage()}

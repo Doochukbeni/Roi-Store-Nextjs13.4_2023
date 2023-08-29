@@ -123,6 +123,7 @@ const SettingsForm = ({ initialData }: SettingFormProps) => {
                   <FormControl>
                     <Input
                       disabled={loading}
+                      className="dark:bg-slate-800 dark:text-slate-300"
                       placeholder="Store Name"
                       {...field}
                     />
