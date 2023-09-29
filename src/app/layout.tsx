@@ -24,18 +24,16 @@ export default function RootLayout({
     <html
       lang="en"
       className={cn(
-        "bg-white text-slate-900  dark:bg-slate-900 dark:text-slate-200  antialiased",
+        // "bg-white text-slate-900  dark:bg-slate-900 dark:text-slate-200 h-full antialiased",
         inter.className
       )}
     >
-      <body className=" dark:bg-slate-800 dark:text-slate-300 h-fit">
+      <body className="dark:bg-slate-800 dark:text-slate-300 h-full">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <ModalProvider />
           <ReactToaster />
 
-          <div className="container max-w-7xl mx-auto h-full pt-16">
-            {children}
-          </div>
+          <div className="container max-w-7xl mx-auto">{children}</div>
           <Toaster />
         </ThemeProvider>
       </body>

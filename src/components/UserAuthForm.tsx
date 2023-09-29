@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useState } from "react";
 import { Button } from "./ui/Button";
 import { signIn } from "next-auth/react";
@@ -6,11 +7,10 @@ import { cn } from "@/lib/utils";
 import { Icons } from "./Icon";
 import { useToast } from "../hooks/use-toast";
 
-interface UserAuthFormProps
-  extends React.HtmlHTMLAttributes<HTMLDListElement> {}
+interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 const UserAuthForm = ({ className, ...props }: UserAuthFormProps) => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const { toast } = useToast();
 
   const logInWithGoogle = async () => {
@@ -30,7 +30,7 @@ const UserAuthForm = ({ className, ...props }: UserAuthFormProps) => {
     }
   };
   return (
-    <div className={cn("flex justify-center", className)}>
+    <div className={cn("flex justify-center", className)} {...props}>
       <Button
         size="sm"
         className="w-full"

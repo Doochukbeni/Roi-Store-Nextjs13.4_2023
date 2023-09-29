@@ -24,7 +24,7 @@ const Navbar = async () => {
     where: { userId: dbUser?.id },
   });
   return (
-    <div className="fixed top-0 inset-x-0 h-fit dark:bg-slate-900 dark:border-zinc-400 bg-zinc-100 border-b border-zinc-300 z-[40] py-3">
+    <div className="fixed top-0 inset-x-0 h-fit dark:bg-slate-900 dark:border-zinc-600 shadow-lg bg-zinc-100 border-b border-zinc-300 z-[40] py-3">
       <div className="container max-w-7xl h-full mx-auto flex items-center justify-between gap-2">
         <StoreSwitcher items={stores} />
         <MainNav className="mx-6" />

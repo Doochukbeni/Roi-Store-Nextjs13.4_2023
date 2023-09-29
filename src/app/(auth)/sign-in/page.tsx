@@ -2,8 +2,8 @@ import SignIn from "@/components/SignIn";
 
 const AuthPage = () => {
   return (
-    <div className="absolute inset-0">
-      <div className="h-full max-w-2xl mx-auto  items-center justify-center gap-20">
+    <div className="h-screen w-full">
+      <div className="h-full flex  items-center justify-center gap-20">
         <SignIn />
       </div>
     </div>

@@ -5,19 +5,19 @@ import UserAuthForm from "./UserAuthForm";
 
 const SignIn = () => {
   return (
-    <div className="container mx-auto flex flex-col w-full justify-center space-y-6 sm:w-[400px] ">
+    <div className="w-full sm:w-[400px]">
       <div className="flex flex-col space-y-2 text-center">
         <Icons.Logo className="mx-auto h-20 w-full " />
-        <h1 className="text-2xl font-semibold tracking-tight ">Welcome back</h1>
-        <p className="text-sm max-w-xs mx-auto">
+        <h1 className="text-2xl font-semibold tracking-tight  ">Welcome</h1>
+        <p className="text-sm max-w-xs mx-auto  font-semibold">
           By continuing, you are setting up a Roi-D Store account and agree to
-          our User Agreement and privacy policy
+          our User Agreement and Privacy Policy
         </p>
 
         <UserAuthForm />
 
-        <p className="px-8 text-center text-sm text-zinc-700">
-          New to Roi-D store?{" "}
+        <p className="px-8 text-center text-sm">
+          New to Roi-D store?
           <Link
             href="/sign-up"
             className="hover:text-zinc-800 text-sm underline underline-offset-4"

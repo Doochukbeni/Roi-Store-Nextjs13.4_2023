@@ -23,7 +23,7 @@ export default async function layout({
   return (
     <>
       <Navbar />
-      <div className="pt-5 bg">{children}</div>
+      <div className="pt-16 mt-5 min-h-full">{children}</div>
     </>
   );
 }
